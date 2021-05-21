@@ -6,14 +6,12 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth/auth.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-// import { LoginComponent } from './auth/components/login/login.component';
-// import { RegisterComponent } from './auth/components/register/register.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    // LoginComponent,
-    // RegisterComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule,
     AuthModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
