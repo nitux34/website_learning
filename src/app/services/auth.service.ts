@@ -2,19 +2,22 @@
 import { ApiService } from './api.service'
 import { NgForm } from '@angular/forms'; 
 import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+
+import { Injectable, OnInit, ɵEMPTY_ARRAY } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class AuthService {
+export class AuthService   {
   public isLogin: boolean = false
   public isLoginFail: boolean = false
+  public userList 
   errorMessage
   constructor(private _api:ApiService, private _router:Router) { 
   }
+
   getUserDetails() {
     // console.log(JSON.parse(localStorage.getItem('userData')));
     return localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null;
@@ -32,7 +35,7 @@ export class AuthService {
 
 //-------
   logSubmit(form: NgForm, nodePath) { 
-    console.log('Your form data : ', form.value); 
+    console.log('Your form data : ', Object.entries(form.value).length); 
     this._api.postTypeRequest(nodePath, form.value).subscribe((res: any) => { //'user/login'
       console.log(res);
       if (res.status) { 
@@ -66,17 +69,11 @@ export class AuthService {
     this._router.navigate(['login']);
   }
 
-  testGet(){
-    this._api.getTypeRequest('user/list').subscribe((res: any) => { 
-      console.log(res);
-      if (res.status) { 
-        this.setDataInLocalStorage('userList', JSON.stringify(res.data));   
-      } else { 
-          alert(res.msg) 
-      } 
-    }, err => { 
-      this.errorMessage = err['error'].message; 
+
+  getUserList(){    
+    this._api.getTypeRequest('user/list').subscribe((res: any) => {   
+      console.log("hi")     
+        this.userList = (res.data);
     }); 
   }
-  
 }

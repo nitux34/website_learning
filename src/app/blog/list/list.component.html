@@ -1,0 +1,11 @@
+<p>list works!</p>
+<!-- <a class="nav-link" (click)='this.testGet()'>Test</a> -->
+
+<ul class="usernames">
+    <li *ngFor="let user of this.auth.userList">
+      <a routerLink="/preview/{{user.id}}">
+        <span class="badge">{{user.id}}</span> {{user.username}}
+      </a>
+    </li>
+  </ul>
+  

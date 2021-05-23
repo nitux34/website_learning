@@ -7,13 +7,19 @@ import { AuthModule } from './auth/auth/auth.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
+import { ListComponent } from './blog/list/list.component';
+import { PreviewComponent } from './blog/preview/preview.component';
 
+import { MarkdownModule } from 'ngx-markdown';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    ListComponent,
+    PreviewComponent,  
   ],
   imports: [
+    MarkdownModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     RouterModule,
