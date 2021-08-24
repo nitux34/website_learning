@@ -1,23 +1,20 @@
-
 import { ApiService } from './api.service'
 import { NgForm } from '@angular/forms'; 
 import { Router } from '@angular/router';
-
-import { Injectable, OnInit, ɵEMPTY_ARRAY } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable} from '@angular/core';
+// import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class AuthService   {
+export class AuthService  {
   public isLogin: boolean = false
   public isLoginFail: boolean = false
   public userList 
   errorMessage
-  constructor(private _api:ApiService, private _router:Router) { 
+  constructor(public _api:ApiService, private _router:Router) { 
   }
-
   getUserDetails() {
     // console.log(JSON.parse(localStorage.getItem('userData')));
     return localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null;
@@ -34,8 +31,7 @@ export class AuthService   {
   }
 
 //-------
-  logSubmit(form: NgForm, nodePath) { 
-    console.log('Your form data : ', Object.entries(form.value).length); 
+  logSubmit(form: NgForm, nodePath) {  
     this._api.postTypeRequest(nodePath, form.value).subscribe((res: any) => { //'user/login'
       console.log(res);
       if (res.status) { 
@@ -71,9 +67,13 @@ export class AuthService   {
 
 
   getUserList(){    
-    this._api.getTypeRequest('user/list').subscribe((res: any) => {   
-      console.log("hi")     
-        this.userList = (res.data);
-    }); 
+    /* this._api.getTypeRequest('user/list').subscribe((res: any) => {   
+      console.log("getUserList hi")     
+      this.userList = (res.data);
+      return res.data
+    });  */
+    //var tmp = this._api.getTypeRequest('user/list');
+    //console.log("tmp",tmp)
+    return this._api.getTypeRequest('user/list')
   }
 }

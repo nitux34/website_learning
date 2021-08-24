@@ -1,11 +1,12 @@
 <p>list works!</p>
 <!-- <a class="nav-link" (click)='this.testGet()'>Test</a> -->
-
+<div> <!--*ngIf="userList !== undefined"-->
 <ul class="usernames">
-    <li *ngFor="let user of this.auth.userList">
+    <li *ngFor="let user of this.userList">
       <a routerLink="/preview/{{user.id}}">
-        <span class="badge">{{user.id}}</span> {{user.username}}
+        <span >{{user.id}}</span> {{user.username}}
       </a>
     </li>
-  </ul>
+</ul>
+</div>
   

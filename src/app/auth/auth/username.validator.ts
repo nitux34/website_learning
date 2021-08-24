@@ -7,11 +7,8 @@ export class UsernameValidator {
         if((control.value as string).indexOf(' ') >= 0){
 
             return {cannotContainSpace: true}
-
         }
-
         return null;
-
     }
 
 }

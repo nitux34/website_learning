@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 
 export class ApiService {
   baseUrl = 'http://localhost:4000/';
-  constructor(private _http: HttpClient) {
+  constructor(public _http: HttpClient) {
 
   }
 
@@ -29,5 +29,11 @@ export class ApiService {
     return this._http.put(`${this.baseUrl}${url}`, payload).pipe(map(res => {
       return res;
     }));
+  }
+  getBlobRequest(url) {
+    return this._http.get(`${this.baseUrl}${url}`,{responseType: 'blob'}).pipe(map(res => {
+      return res;
+    }));
+    //return this._http.get(`${this.baseUrl}${url}`,{responseType: 'blob'});
   }
 }

@@ -9,7 +9,16 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ListComponent implements OnInit { 
   constructor(private _api: ApiService, public auth: AuthService) { }
   errorMessage
+  userList 
+/*     [{
+      "username": "test",
+      "id": "4",
+    }]; */
   ngOnInit(): void {    
-    this.auth.getUserList();
+    this.getUserList();
+  }
+
+  getUserList(): void{
+    this.auth.getUserList().subscribe((res: any)=> this.userList = res.data );
   }
 }
