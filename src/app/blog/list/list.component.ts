@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { GalleryService } from 'src/app/services/gallery.service';
-import { first } from "rxjs/operators";
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -18,9 +18,6 @@ export class ListComponent implements OnInit {
     }]; */
   ngOnInit(): void {    
     this.getGalleryList();
-    
-
-
   }
 
   getGalleryList(): void{

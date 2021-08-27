@@ -1,50 +1,58 @@
-<div class = 'row m-0 w-100'>
+<div class = 'container align-items-center'>    
     <!-- LOGIN FORM -->
-    
-    <div class = 'col-md-4 offset-4 mt-5' *ngIf = '!this.auth.isLogin && !this.lWantRegister; else logoutTemplate'>
-        <h4>Login</h4>
-        <form #myform = "ngForm" class="form-horizontal" (ngSubmit) = "this.auth.logSubmit(myform,'user/login')" >
-            <div class = 'form-group'>
-                <input class = 'form-control' type = "text" name = "username" placeholder = "Username" ngModel >
-            </div>
-            <div class = 'form-group'>
-                <input class = 'form-control' type = "password" name = "password" placeholder = "Password" ngModel>
-            </div>
-            <input class= 'btn btn-outline-info' type = "submit" value = "Login">
-        </form>
-        <!-- <a class="btn btn-primary stretched-link" (click)='this.switchRegisterBool()'>New here? Register!</a> -->
-        <p style="color:crimson"> {{this.auth.isLoginFail ? "Incorrect data" : ""}}</p>        
+    <div class="row">
+        <div class = 'col mt-5 login-width' *ngIf = '!this.auth.isLogin && !this.lWantRegister; else logoutTemplate'>
+            <h4>Login</h4>
+            <form #myform = "ngForm" class="form-horizontal" (ngSubmit) = "this.auth.logSubmit(myform,'user/login')" >
+                <div class = 'form-group'>
+                    <input class = 'form-control' type = "text" name = "username" placeholder = "Username" ngModel >
+                </div>
+                <div class = 'form-group'>
+                    <input class = 'form-control' type = "password" name = "password" placeholder = "Password" ngModel>
+                </div>
+                <input class= 'btn btn-outline-info' type = "submit" value = "Login">
+            </form>
+            <!-- <a class="btn btn-primary stretched-link" (click)='this.switchRegisterBool()'>New here? Register!</a> -->
+            <p style="color:crimson"> {{this.auth.isLoginFail ? "Incorrect data" : ""}}</p>        
 
+        </div>
     </div>
 
     <!-- REGISTER FORM -->
-    <div class = 'col-md-4 offset-4 mt-5' *ngIf = '!this.auth.isLogin && this.lWantRegister'>
-        <h4>Register</h4>
-        
-        <form #myform = "ngForm" [formGroup]="form" (ngSubmit) = "this.auth.logSubmit(myform,'user/register')" >
-            <div class = 'form-group'>
-                <input formControlName="username" class = 'form-control'  type = "text" name = "username" placeholder = "Username" ngModel>
-            </div>            
-            <div class = 'form-group' >
-                <input formControlName="email" class = 'form-control'  type = "email" name = "email" placeholder = "Email" ngModel>
+    <div class="row">
+        <div class = 'col mt-5 login-width' *ngIf = '!this.auth.isLogin && this.lWantRegister'>
+            <h4>Register</h4>
+            
+            <form #myform = "ngForm" [formGroup]="form" (ngSubmit) = "this.auth.logSubmit(myform,'user/register')" >
+                <div class = 'form-group'>
+                    <input formControlName="username" class = 'form-control'  type = "text" name = "username" placeholder = "Username" ngModel>
+                </div>            
+                <div class = 'form-group' >
+                    <input formControlName="email" class = 'form-control'  type = "email" name = "email" placeholder = "Email" ngModel>
+                </div>
+                <div class = 'form-group' >
+                    <input  formControlName="password" class = 'form-control' type = "password" name = "password" placeholder = "Password" ngModel>
+                </div>
+                <input class= 'btn btn-outline-info' [disabled]="form.invalid" type = "submit" value = "Register"> <!---->
+            </form>        
+            <div class="test" *ngIf="form.invalid">
+                <span>Username and password must be at least 3 and 6 characters long.</span>
             </div>
-            <div class = 'form-group' >
-                <input  formControlName="password" class = 'form-control' type = "password" name = "password" placeholder = "Password" ngModel>
-            </div>
-            <input class= 'btn btn-outline-info' [disabled]="form.invalid" type = "submit" value = "Register"> <!---->
-        </form>        
-        <div *ngIf="form.invalid">
-            Username and password must be at least 3 and 6 characters long.
         </div>
     </div>
-    <div class="col-md-4 offset-4 mt-1" *ngIf = '!this.auth.isLogin'>
-        <a class="btn btn-primary" (click)='this.switchRegisterBool()'>{{this.lWantRegister ? "Already here? Login!" : "New here? Register!" }}</a>
+    <div class="row">
+        <div class="col mt-2" *ngIf = '!this.auth.isLogin'>
+            <a class="btn btn-primary" (click)='this.switchRegisterBool()'>{{this.lWantRegister ? "Already here? Login!" : "New here? Register!" }}</a>
+        </div>
     </div>
     <!-- YOU ARE LOGGED IN -->
-    <ng-template #logoutTemplate>
-        <div class = 'col-md-4 offset-4 mt-5' *ngIf = 'this.auth.isLogin'>
-            <h2>You are logged in</h2>
-        </div>
-    </ng-template>
+
+    <div class="row">
+        <ng-template #logoutTemplate>
+            <div class = 'col mt-1' *ngIf = 'this.auth.isLogin'>
+                <h2>You are logged in.</h2>
+            </div>
+        </ng-template>
+    </div>
 </div>
 
