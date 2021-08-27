@@ -1,8 +1,11 @@
 <p>preview works!</p>
+<div>
+  <div *ngIf="tmpArt"> {{tmpArt.title}} </div>
+  <!-- <markdown [src]="'../../assets/blog/first.md'" ></markdown> HOW TO MARKDOWN-->
+  <div class="view overlay"><img class="" [src]="tmpImage" width="500">
+  </div>
+</div>
 
-<div *ngIf="tmpUser"> {{tmpUser.username}} </div>
-<markdown [src]="'../../assets/blog/first.md'" ></markdown>
-<div><img [src]="tmpImage" width="500"></div>
 <!-- <markdown [src]="'./assets/blog/first.md'"></markdown> -->
 <!-- <div *ngIf="userList">
     <h2>{{hero.name | uppercase}} Details</h2>

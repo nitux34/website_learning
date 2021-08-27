@@ -1,0 +1,53 @@
+// GLOBAL CONSTANTS
+$text_color: #f4f4f4
+.gallerygrid
+    display: grid
+    grid-template-columns:  auto auto auto //number of cols determined by the number of variables
+    height: min-content
+
+.gallerycell
+    padding: 30px
+    padding-bottom: 50px    
+    align-items: center 
+    //margin-top: auto //to align images with the lower edge
+    a 
+        text-decoration: none
+        color: #1a1a1a    
+        
+         
+
+.artcontainer //Needed to get the overlay working correctly. This container will be the size of the img. The size of the overlay will then take the size of artcontainer
+    position: relative    
+    margin-bottom: 14px  //gap between the image and the image Title
+    &:hover .overlay
+        opacity: 0.8          
+    img
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.5)//10px 10px 5px grey    
+          
+
+.overlay   
+    background-color: #1a1a1a
+    color: $text_color
+    transition: .5s ease
+    opacity: 0
+    position: absolute
+    height:30px //
+    bottom: 0 // describe the overlay size relative to parent (artcontainer). 0 means that overlay bottom is same as parent bottom
+    right: 0
+    left: 0
+    text-align: center  
+    font-weight: bold
+    
+
+.art-text
+    font-size: 16px   
+    //font-family: Arial, Helvetica, sans-serif 
+
+
+
+
+
+        
+
+//.content
+     //max-width: 1500px

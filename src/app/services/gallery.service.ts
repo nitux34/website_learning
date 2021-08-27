@@ -8,7 +8,7 @@ export class GalleryService {
 
   constructor(public _api:ApiService) { }
 
-  get galleryList(){    
+  getGalleryList(){    
     return this._api.getTypeRequest('content/list')
   }
 }

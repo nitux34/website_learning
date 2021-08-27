@@ -1,12 +1,27 @@
 <p>list works!</p>
 <!-- <a class="nav-link" (click)='this.testGet()'>Test</a> -->
-<div> <!--*ngIf="userList !== undefined"-->
-<ul class="usernames">
-    <li *ngFor="let user of this.userList">
-      <a routerLink="/preview/{{user.id}}">
-        <span >{{user.id}}</span> {{user.username}}
+<!-- <div> 
+<ul class="gallerygrid">
+    <li class="gallerycell" *ngFor="let art of this.galleryList">
+      <a routerLink="/preview/{{art.id}}">
+        <span >{{art.id}} </span> {{art.title}} <div><img [src]="this.tmpImages[art.id]" height="250"></div>
       </a>
-    </li>
+      <div class="spacer"></div>
+    </li>    
 </ul>
+</div> -->
+
+<div class="gallerygrid">
+  <div class="gallerycell" *ngFor="let art of this.galleryList">
+    
+    <a routerLink="/preview/{{art.id}}">
+      <div class="artcontainer">
+       <img class="" [src]="this.tmpImages[art.id]"  width="280px" > <!-- maxwidth = content_width/3 - padding*2 -->     
+       <div class="overlay">Details</div> <!--rounded-->
+      </div> 
+        <span class="art-text">{{art.title}} </span>
+    </a>  
+  </div>
 </div>
+
   
