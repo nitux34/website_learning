@@ -14,16 +14,16 @@
 
 <div class="row">
   <div class="col" >
-    <a href="{{this.prevPageRef}}">
-  <button class="btn btn-primary" *ngIf="this.pageNr>1" type="button" (click)="this.prevPage()" >Prev</button>
+    <a href="{{this.prevPageRef}}" *ngIf="this.pageNr>1">
+    <button class="btn btn-primary"  type="button">Prev</button>
     </a>
   </div>
 
   <div class="col page-nr">{{this.pageNr}}/{{this.nrPages}}</div>
 
   <div class="col" >
-    <a href="{{this.nextPageRef}}">
-    <button class="btn btn-primary next-position" *ngIf="this.isNextPage" type="button" >Next</button> <!---->
+    <a href="{{this.nextPageRef}}" *ngIf="this.isNextPage">
+    <button class="btn btn-primary next-position"  type="button" >Next</button> <!---->
     </a>
   </div>
 </div>
