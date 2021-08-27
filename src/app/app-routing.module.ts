@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'list', component: ListComponent},
   {path: 'preview/:id', component: PreviewComponent},
-  {path: 'gallery', component: GalleryComponent},
+  {path: 'gallery/:id', component: GalleryComponent},
   {path: 'artwork/:id', component: ArtworkComponent},
 ];
 

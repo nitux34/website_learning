@@ -1,6 +1,6 @@
 <p>gallery works!</p>
 <div class="gallerygrid">
-  <div class="gallerycell" *ngFor="let art of this.galleryList">
+  <div class="gallerycell" *ngFor="let art of this.pageGalleryList">
     
     <a routerLink="/artwork/{{art.id}}">
       <div class="artcontainer">
@@ -9,7 +9,23 @@
       </div> 
         <span class="art-text">{{art.title}} </span>
     </a>  
+  </div>  
+</div>
+
+<div class="row">
+  <div class="col" >
+    <a href="{{this.prevPageRef}}">
+  <button class="btn btn-primary" *ngIf="this.pageNr>1" type="button" (click)="this.prevPage()" >Prev</button>
+    </a>
+  </div>
+
+  <div class="col page-nr">{{this.pageNr}}/{{this.nrPages}}</div>
+
+  <div class="col" >
+    <a href="{{this.nextPageRef}}">
+    <button class="btn btn-primary next-position" *ngIf="this.isNextPage" type="button" >Next</button> <!---->
+    </a>
   </div>
 </div>
 
-  
+

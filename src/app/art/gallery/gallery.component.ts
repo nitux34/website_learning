@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { GalleryService } from 'src/app/services/gallery.service';
-
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
@@ -9,22 +10,46 @@ import { GalleryService } from 'src/app/services/gallery.service';
 })
 export class GalleryComponent implements OnInit {
 
-  constructor(private _api: ApiService, public gallery: GalleryService) { }
+  constructor(private _api: ApiService, public gallery: GalleryService,private route: ActivatedRoute, private router: Router) {
+    //this.router.routeReuseStrategy.shouldReuseRoute = () => false; // this would otherwise prevent "/gallery/:id" from loading in nextPage() function. however
+   }
   errorMessage
-  galleryList 
-  tmpImages: any = []
-  allArtId
+
+  fullGalleryList  //All items in the gallery
+  pageGalleryList = [] //Items to load on current page
+  tmpImages: any = [] //Images to load on current page
+  pageNr
+  pageNr0
+  isNextPage // does a next page exist
+  nrPages
+  public nextPageRef //href link to load
+  public prevPageRef
+  
+  
   ngOnInit(): void {    
     this.getGalleryList();
   }
 
   getGalleryList(): void{
+    this.pageNr = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
+    this.pageNr0 = this.pageNr-1;    
+    const nrItemsPage = 6;
+    this.nextPageRef = ("/gallery/").concat((this.pageNr+1).toString());
+    this.prevPageRef = ("/gallery/").concat((this.pageNr-1).toString());
+    console.log(this.nextPageRef)
+    //var lastPageItem;
     this.gallery.getGalleryList().subscribe((res: any)=> {
-      this.galleryList = res.data;
-      this.galleryList.forEach(art => {
-        this.allArtId.push(art.id);
-        this.getImages(art.id);
-      });
+      this.fullGalleryList = res.data;
+      this.nrPages = Math.ceil(this.fullGalleryList.length/nrItemsPage);
+      for (let ii = this.pageNr0*nrItemsPage; ii < this.fullGalleryList.length && ii < this.pageNr0*nrItemsPage+nrItemsPage; ii++){
+        this.pageGalleryList.push(this.fullGalleryList[ii]);
+        this.getImages(this.fullGalleryList[ii].id);
+      }
+        if(this.fullGalleryList.length < this.pageNr0*nrItemsPage+nrItemsPage) {
+          this.isNextPage = false;
+        }else{
+          this.isNextPage = true;
+        }
     });
   }
   getImages(id){
