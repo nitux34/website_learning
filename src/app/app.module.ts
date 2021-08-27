@@ -11,12 +11,16 @@ import { ListComponent } from './blog/list/list.component';
 import { PreviewComponent } from './blog/preview/preview.component';
 
 import { MarkdownModule } from 'ngx-markdown';
+import { GalleryComponent } from './art/gallery/gallery.component';
+import { ArtworkComponent } from './art/artwork/artwork.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ListComponent,
-    PreviewComponent,  
+    PreviewComponent,
+    GalleryComponent,
+    ArtworkComponent,  
   ],
   imports: [
     MarkdownModule.forRoot(),
