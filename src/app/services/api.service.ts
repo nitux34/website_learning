@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';//private _http_params: HttpParams
 import { map } from 'rxjs/operators';

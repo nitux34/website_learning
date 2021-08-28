@@ -15,8 +15,8 @@ export class GalleryComponent implements OnInit {
    }
   errorMessage
 
-  fullGalleryList  //All items in the gallery
-  pageGalleryList = [] //Items to load on current page
+  public fullGalleryList  //All items in the gallery
+  public pageGalleryList = [] //Items to load on current page
   tmpImages: any = [] //Images to load on current page
   pageNr
   pageNr0
@@ -36,20 +36,17 @@ export class GalleryComponent implements OnInit {
     const nrItemsPage = 6;
     this.nextPageRef = ("/gallery/").concat((this.pageNr+1).toString());
     this.prevPageRef = ("/gallery/").concat((this.pageNr-1).toString());
-    console.log(this.nextPageRef)
-    //var lastPageItem;
+
     this.gallery.getGalleryList().subscribe((res: any)=> {
-      this.fullGalleryList = res.data;
+      console.log(res.data)
+      res.status ? this.fullGalleryList = res.data : this.fullGalleryList = [];
+      
       this.nrPages = Math.ceil(this.fullGalleryList.length/nrItemsPage);
       for (let ii = this.pageNr0*nrItemsPage; ii < this.fullGalleryList.length && ii < this.pageNr0*nrItemsPage+nrItemsPage; ii++){
         this.pageGalleryList.push(this.fullGalleryList[ii]);
         this.getImages(this.fullGalleryList[ii].id);
       }
-        if(this.fullGalleryList.length < this.pageNr0*nrItemsPage+nrItemsPage) {
-          this.isNextPage = false;
-        }else{
-          this.isNextPage = true;
-        }
+        (this.fullGalleryList.length < this.pageNr0*nrItemsPage+nrItemsPage) ? this.isNextPage = false : this.isNextPage = true;
     });
   }
   getImages(id){

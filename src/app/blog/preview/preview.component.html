@@ -1,9 +1,22 @@
 <p>preview works!</p>
 <div>
   <div *ngIf="tmpArt"> {{tmpArt.title}} </div>
-  <!-- <markdown [src]="'../../assets/blog/first.md'" ></markdown> HOW TO MARKDOWN-->
-  <div class="view overlay"><img class="" [src]="tmpImage" width="500">
+   <markdown [data]="this.tmpBlogpost" ></markdown>
+  <div class=""><img class="" [src]="tmpImage" width="500">
   </div>
+</div>
+
+<input type="file" class="file-input"
+       (change)="onFileSelected($event)" #fileUpload>
+
+<div class="file-upload">
+
+   {{fileName || "No file uploaded yet."}}
+
+    <button mat-mini-fab color="primary" class="upload-btn"
+      (click)="fileUpload.click()">
+        attach_file <!--<mat-icon>attach_file</mat-icon>-->
+    </button>
 </div>
 
 <!-- <markdown [src]="'./assets/blog/first.md'"></markdown> -->

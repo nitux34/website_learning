@@ -3,7 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { GalleryService } from 'src/app/services/gallery.service';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser'; //, private sanitizer: DomSanitizer
+//import {MatIconModule} from '@angular/material/icon';
 
 
 @Component({
@@ -12,13 +14,18 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser
   styleUrls: ['./preview.component.sass']
 })
 export class PreviewComponent implements OnInit {
-  constructor( private route: ActivatedRoute,public router: Router, public auth:AuthService, public gallery:GalleryService, private sanitizer: DomSanitizer) { }
+  constructor( private route: ActivatedRoute,public router: Router, public auth:AuthService, public gallery:GalleryService, private sanitizer: DomSanitizer, private _api: ApiService) { }
   tmpArt
   artList
   tmpImage
+  tmpBlogpost
+  fileName = '';
+
+
   ngOnInit(): void { 
     
     this.getGalleryList(); 
+    this.getBlogpost();
   }
 
   /* goToList(){ //NEVER USED?
@@ -56,8 +63,7 @@ export class PreviewComponent implements OnInit {
   }  */
 
   getImage(id){
-    this.auth._api.getBlobRequest('content/image',id).subscribe((res: any) => {   
-      console.log(res)
+    this._api.getBlobRequest('content/image',id).subscribe((res: any) => {   
       const reader = new FileReader(); 
       if (res){
         reader.readAsDataURL(res); //FileStream response from .NET core backend
@@ -68,4 +74,32 @@ export class PreviewComponent implements OnInit {
     }); 
   }
 
+  getBlogpost() {
+    this._api.getBlobRequest('content/blogpost',0).subscribe((res: any) => {  
+      const reader = new FileReader(); 
+      if (res){
+        //reader.readAsDataURL(res); //FileStream response from .NET core backend
+        reader.readAsText(res);
+        reader.onload = _event => {
+          this.tmpBlogpost = reader.result; 
+        };
+      } 
+    });
+  }
+
+  onFileSelected(event) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+
+        this.fileName = file.name;
+
+        const formData = new FormData();
+
+        formData.append("thumbnail", file);
+        const upload$ = this._api.postTypeRequest("uploader/upload",formData); // 
+        upload$.subscribe();
+    }
+}
 }

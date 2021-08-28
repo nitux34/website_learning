@@ -11,6 +11,7 @@ import { ListComponent } from './blog/list/list.component';
 import { PreviewComponent } from './blog/preview/preview.component';
 
 import { MarkdownModule } from 'ngx-markdown';
+//import {MatIconModule} from '@angular/material/icon';
 import { GalleryComponent } from './art/gallery/gallery.component';
 import { ArtworkComponent } from './art/artwork/artwork.component';
 @NgModule({
@@ -30,6 +31,7 @@ import { ArtworkComponent } from './art/artwork/artwork.component';
     AuthModule,
     FormsModule,
     HttpClientModule,
+    //MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
