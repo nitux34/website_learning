@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { GalleryService } from 'src/app/services/gallery.service';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser'; //, private sanitizer: DomSanitizer
-
+import {baseBackendUrl,artworkFolder} from 'src/app/global-variables';
 
 @Component({
   selector: 'app-artwork',
@@ -16,9 +16,11 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser
 export class ArtworkComponent implements OnInit {
 
   constructor( private route: ActivatedRoute,public router: Router, public auth:AuthService, public gallery:GalleryService, private sanitizer: DomSanitizer) { }
-  tmpArt
-  artList
+  tmpArt: any = [];
+  fullGalleryList
   tmpImage
+  baseBackendUrl = baseBackendUrl;
+  artworkFolder = artworkFolder;
   ngOnInit(): void { 
     
     this.getGalleryList(); 
@@ -30,15 +32,16 @@ export class ArtworkComponent implements OnInit {
 
   getGalleryList(): void{
       this.gallery.getGalleryList().subscribe((res: any)=> {
-        this.artList = res.data;
+        this.fullGalleryList = res.data;
         this.getArt();
       } );
   }
   getArt() {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
-    if (this.artList!=null){   
-        this.tmpArt = this.artList.find(e => e.id === id);   
-        this.getImage(id);     
+    if (this.fullGalleryList!=null){   
+        this.tmpArt = this.fullGalleryList.find(e => e.id === id);   
+        this.tmpArt.path_image = baseBackendUrl.concat(artworkFolder).concat(this.tmpArt.path_image);
+        //this.getImage(id);     
     }    
   }
 
@@ -58,7 +61,7 @@ export class ArtworkComponent implements OnInit {
     });         
   }  */
 
-  getImage(id){
+  /* getImage(id){
     this.auth._api.getBlobRequest('content/image',id).subscribe((res: any) => {   
       console.log(res)
       const reader = new FileReader(); 
@@ -69,7 +72,7 @@ export class ArtworkComponent implements OnInit {
         };
       } 
     }); 
-  }
+  } */
 
 }
 

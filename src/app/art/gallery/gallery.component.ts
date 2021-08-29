@@ -3,6 +3,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { GalleryService } from 'src/app/services/gallery.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import {baseBackendUrl} from 'src/app/global-variables';
+
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
@@ -24,7 +26,7 @@ export class GalleryComponent implements OnInit {
   nrPages
   public nextPageRef //href link to load
   public prevPageRef
-  
+  baseBackendUrl = baseBackendUrl;
   
   ngOnInit(): void {    
     this.getGalleryList();
@@ -33,7 +35,7 @@ export class GalleryComponent implements OnInit {
   getGalleryList(): void{
     this.pageNr = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
     this.pageNr0 = this.pageNr-1;    
-    const nrItemsPage = 6;
+    const nrItemsPage = 9;
     this.nextPageRef = ("/gallery/").concat((this.pageNr+1).toString());
     this.prevPageRef = ("/gallery/").concat((this.pageNr-1).toString());
 
@@ -44,12 +46,14 @@ export class GalleryComponent implements OnInit {
       this.nrPages = Math.ceil(this.fullGalleryList.length/nrItemsPage);
       for (let ii = this.pageNr0*nrItemsPage; ii < this.fullGalleryList.length && ii < this.pageNr0*nrItemsPage+nrItemsPage; ii++){
         this.pageGalleryList.push(this.fullGalleryList[ii]);
-        this.getImages(this.fullGalleryList[ii].id);
+        var index = this.pageGalleryList.length-1;
+        this.pageGalleryList[index].path_image = this.baseBackendUrl.concat("artwork/").concat(this.pageGalleryList[index].path_image); 
+        //this.getImages(this.fullGalleryList[ii].id);
       }
         (this.fullGalleryList.length < this.pageNr0*nrItemsPage+nrItemsPage) ? this.isNextPage = false : this.isNextPage = true;
     });
   }
-  getImages(id){
+/*   getImages(id){
     this._api.getBlobRequest('content/image',id).subscribe((res: any) => { 
     console.log(res)
     const reader = new FileReader(); 
@@ -60,5 +64,5 @@ export class GalleryComponent implements OnInit {
       };
     }      
   });
-  }
+  } */
 }
