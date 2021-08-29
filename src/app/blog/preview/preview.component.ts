@@ -20,8 +20,9 @@ export class PreviewComponent implements OnInit {
   tmpImage
   tmpBlogpost
   fileName = '';
-
-
+  formData
+  uploadStatus
+  public baseUrl = 'http://localhost:4000/blogposts'
   ngOnInit(): void { 
     
     this.getGalleryList(); 
@@ -95,11 +96,39 @@ export class PreviewComponent implements OnInit {
 
         this.fileName = file.name;
 
-        const formData = new FormData();
+        this.formData = new FormData();
 
-        formData.append("thumbnail", file);
-        const upload$ = this._api.postTypeRequest("uploader/upload",formData); // 
-        upload$.subscribe();
+        this.formData.append("data", file);
+        
     }
-}
+  }
+
+  uploadImgFile(){
+    console.log(this.formData)
+    const upload$ = this._api.postTypeRequest("uploader/image",this.formData); // 
+    upload$.subscribe((res:any) =>{
+      
+      this.uploadStatus = res.msg;
+      this.formData = null;
+      this.fileName = null;
+      this.uploadMdFile();//.next((res) => );
+      //location.reload(); // If image is added, page needs reload 
+    });
+  }
+
+  uploadMdFile(){
+    var mdFormData = new FormData();
+    mdFormData.append("data",this.getEditMarkdownText());
+    console.log(mdFormData)
+    this._api.postTypeRequest("uploader/md",mdFormData).subscribe((res:any) =>{
+      console.log(res)
+      this.uploadStatus = res.msg;
+    });
+    //location.reload()
+  }
+
+  getEditMarkdownText(){
+    var textMd = (<HTMLInputElement>document.getElementById('textEditMarkdown')).value;     // Cast the result of getElement... to HTMLInputElement    
+    return textMd
+  }
 }

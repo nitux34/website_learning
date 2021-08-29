@@ -1,22 +1,46 @@
 <p>preview works!</p>
-<div>
+<!-- <div>
   <div *ngIf="tmpArt"> {{tmpArt.title}} </div>
    <markdown [data]="this.tmpBlogpost" ></markdown>
   <div class=""><img class="" [src]="tmpImage" width="500">
+  </div> 
+</div> -->
+<div class="editor">
+  <div class="row">
+    <div class="col w-50">EDITOR</div>
+    <div class="col w-50">PREVIEW</div>
+  </div>
+  <div class="row">
+    <div class="col w-50">
+    <textarea rows="10" class="ta-class h-100" id="textEditMarkdown">{{this.tmpBlogpost}}</textarea>
+    </div>
+    <div class="col w-50 my-border rounded-0">
+      <markdown [data]="this.getEditMarkdownText()"></markdown>
+    </div>
   </div>
 </div>
+<button class="btn btn-info btn-lg" (click)="this.getEditMarkdownText()" title="">
+  <span class="">Generate Preview</span> 
+</button>
+<button class="btn btn-info btn-lg m-1" (click)="this.uploadMdFile()" title="">
+  <span class="">Save</span> 
+</button>
 
-<input type="file" class="file-input"
-       (change)="onFileSelected($event)" #fileUpload>
 
+
+<input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
 <div class="file-upload">
-
-   {{fileName || "No file uploaded yet."}}
-
-    <button mat-mini-fab color="primary" class="upload-btn"
-      (click)="fileUpload.click()">
-        attach_file <!--<mat-icon>attach_file</mat-icon>-->
-    </button>
+    <!-- <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()" title="Choose a file">
+    <i class="fa fa-folder"></i> 
+    </button> -->
+  <button type="button" class="btn btn-info btn-lg" (click)="fileUpload.click()" title="Choose a file">
+    <span class="glyphicon glyphicon-file"></span>
+  </button>    
+  <button class="btn btn-info btn-lg m-1" (click)="this.uploadImgFile()" title="Upload!"  [disabled]="!formData">
+    <span class="glyphicon glyphicon-upload"></span> 
+  </button>
+  {{fileName || "No file selected yet."}}
+  <div *ngIf="this.uploadStatus!=undefined"> {{this.uploadStatus}}</div>
 </div>
 
 <!-- <markdown [src]="'./assets/blog/first.md'"></markdown> -->
