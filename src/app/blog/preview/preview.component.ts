@@ -19,9 +19,9 @@ export class PreviewComponent implements OnInit {
   artList
   tmpImage
   tmpBlogpost
-  fileName = '';
+  fileName: string = '';
   formData
-  uploadStatus
+  uploadStatus: string ='';
   public baseUrl = 'http://localhost:4000/blogposts'
   ngOnInit(): void { 
     
@@ -111,22 +111,37 @@ export class PreviewComponent implements OnInit {
       this.uploadStatus = res.msg;
       this.formData = null;
       this.fileName = null;
-      this.uploadMdFile();//.next((res) => );
+      this.uploadMdFile(false);//.next((res) => );
+      this.clearStatusText();
       //location.reload(); // If image is added, page needs reload 
     });
   }
 
-  uploadMdFile(){
+  uploadMdFile(lStatus = true){
     var mdFormData = new FormData();
     mdFormData.append("data",this.getEditMarkdownText());
     console.log(mdFormData)
     this._api.postTypeRequest("uploader/md",mdFormData).subscribe((res:any) =>{
       console.log(res)
-      this.uploadStatus = res.msg;
+      if (lStatus){
+        this.uploadStatus = res.msg;
+      }
+      this.clearStatusText();
     });
     //location.reload()
   }
-
+  clearStatusText(){
+    //setTimeout(function(){this.uploadStatus = ''; console.log("UP",this.uploadStatus) }, 500);  
+    setTimeout(this.clearStatus, 500);  
+  }
+  get statusText(){
+    console.log("Hi")
+    return this.uploadStatus;
+  }
+  clearStatus(){
+    console.log("YARR")
+    this.uploadStatus = 'asdasd';
+  }
   getEditMarkdownText(){
     var textMd = (<HTMLInputElement>document.getElementById('textEditMarkdown')).value;     // Cast the result of getElement... to HTMLInputElement    
     return textMd

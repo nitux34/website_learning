@@ -40,7 +40,9 @@
     <span class="glyphicon glyphicon-upload"></span> 
   </button>
   {{fileName || "No file selected yet."}}
-  <div *ngIf="this.uploadStatus!=undefined"> {{this.uploadStatus}}</div>
+
+  <!--<div [(ngModel)]="uploadStatus" novalidate><p>{{uploadStatus}}</p></div>-->
+  <div><span>{{uploadStatus}}</span></div>
 </div>
 
 <!-- <markdown [src]="'./assets/blog/first.md'"></markdown> -->
