@@ -1,28 +1,30 @@
 <p>gallery works!</p>
 <p *ngIf="!this.pageGalleryList.length">There is nothing here at the moment.</p>
-<div class="gallerygrid">
-  <div class="gallerycell" *ngFor="let art of this.pageGalleryList">    
-    <a routerLink="/artwork/{{art.id}}">
-      <div class="artcontainer">
-       <img class="" [src]="art.path_image"  width="280px" > <!-- maxwidth = content_width/3 - padding*2 -->     
-       <div class="overlay">Details</div> <!--rounded-->
-      </div> 
-        <span class="art-text">{{art.title}} </span>
-    </a>  
+<div class="container justify-content-center">
+  <div class="row justify-content-center" >    
+    <div class="col-auto" *ngFor="let art of this.pageGalleryList">
+      <a routerLink="/artwork/{{art.id}}">
+        <div class="artcontainer">
+          <div class="overlay">Details</div> 
+          <img class="" [src]="art.path_image"  width="350px" > <!-- maxwidth = content_width/3 - padding*2 -->                                                            
+        </div>
+        <div class=" art-text">{{art.title}} </div>  
+      </a>  
+    </div>
   </div>  
 </div>
 
 <div class="row">
   <div class="col" >
     <a href="{{this.prevPageRef}}" *ngIf="this.pageNr>1">
-    <button class="btn btn-primary btn-lg"  type="button">Prev</button>
+    <button class="btn btn-primary btn"  type="button">Prev</button>
     </a>
   </div>
 
   <div class="col page-nr" *ngIf="this.nrPages>0">{{this.pageNr}}/{{this.nrPages}}</div>  
   <div class="col" >
     <a href="{{this.nextPageRef}}" *ngIf="this.isNextPage">
-    <button class="btn btn-primary next-position btn-lg"  type="button" >Next</button> <!---->
+    <button class="btn btn-primary next-position btn"  type="button" >Next</button> <!---->
     </a>
   </div>
 </div>

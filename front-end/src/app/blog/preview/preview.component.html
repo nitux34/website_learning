@@ -1,4 +1,3 @@
-<p>preview works!</p>
 <!-- <div>
   <div *ngIf="tmpArt"> {{tmpArt.title}} </div>
    <markdown [data]="this.tmpBlogpost" ></markdown>
@@ -6,53 +5,38 @@
   </div> 
 </div> -->
 <div class="editor">
-  <div class="row">
-    <div class="col w-50">EDITOR</div>
-    <div class="col w-50">PREVIEW</div>
-  </div>
-  <div class="row">
-    <div class="col w-50">
-    <textarea rows="10" class="ta-class h-100" id="textEditMarkdown">{{this.tmpBlogpost}}</textarea>
+  <div class="container ">
+    <div class="row">
+      <div class="col w-50">
+        EDITOR
+      <textarea [(ngModel)]="tmpBlogpost" class="ta-class win-size" id="textEditMarkdown">{{tmpBlogpost}}</textarea>
+      </div>
+      <div class="col w-50 ">
+        PREVIEW
+        <div class="my-border win-size">
+          <markdown [data]="this.getEditMarkdownText()"></markdown>
+        </div>
+      </div>
     </div>
-    <div class="col w-50 my-border rounded-0">
-      <markdown [data]="this.getEditMarkdownText()"></markdown>
-    </div>
+  
+
+    <div class="w-100"><!--BUTTONS-->
+    <button class="btn btn-info btn mt-1" (click)="this.uploadMdFile()" title="">
+      <span class="bi-save"> Save</span> 
+    </button>
+
+    <div class="w-100"></div>
+    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+    <div class="file-upload">
+      <button type="button" class="btn btn-info btn" (click)="fileUpload.click()" title="Choose a file">
+        <span class="bi bi-folder"></span>
+      </button>    
+      <button class="btn btn-info btn m-1" (click)="this.uploadImgFile()" title="Upload!"  [disabled]="!formData">
+        <span class="bi-upload"></span> 
+      </button>
+      {{fileName || "No file selected yet."}}
+      <div><span>{{uploadStatus}}</span></div>
+    
   </div>
 </div>
-<button class="btn btn-info btn-lg" (click)="this.getEditMarkdownText()" title="">
-  <span class="">Generate Preview</span> 
-</button>
-<button class="btn btn-info btn-lg m-1" (click)="this.uploadMdFile()" title="">
-  <span class="">Save</span> 
-</button>
-
-
-
-<input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
-<div class="file-upload">
-    <!-- <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()" title="Choose a file">
-    <i class="fa fa-folder"></i> 
-    </button> -->
-  <button type="button" class="btn btn-info btn-lg" (click)="fileUpload.click()" title="Choose a file">
-    <span class="glyphicon glyphicon-file"></span>
-  </button>    
-  <button class="btn btn-info btn-lg m-1" (click)="this.uploadImgFile()" title="Upload!"  [disabled]="!formData">
-    <span class="glyphicon glyphicon-upload"></span> 
-  </button>
-  {{fileName || "No file selected yet."}}
-
-  <!--<div [(ngModel)]="uploadStatus" novalidate><p>{{uploadStatus}}</p></div>-->
-  <div><span>{{uploadStatus}}</span></div>
 </div>
-
-<!-- <markdown [src]="'./assets/blog/first.md'"></markdown> -->
-<!-- <div *ngIf="userList">
-    <h2>{{hero.name | uppercase}} Details</h2>
-    <div><span>id: </span>{{hero.id}}</div>
-    <div>
-      <label for="hero-name">Hero name: </label>
-      <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name"/>
-    </div>
-    <button (click)="goBack()">go back</button>
-    <button (click)="save()">save</button>
-  </div> -->
