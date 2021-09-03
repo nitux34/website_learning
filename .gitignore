@@ -1,5 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# Content and config
+back-end/config/*
+back-end/website_content/*
 # compiled output
 /dist
 /tmp
