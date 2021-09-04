@@ -2,6 +2,7 @@
 This repo has a front end built with angular and bootstrap and a back end storing files using node framework express.
 
 ## SETUP:
+* Install Node.js: https://nodejs.org/en/download/
 * Run "npm install" to install all dependencies
 * Setup a mysql database and add a file with information about it as below
 Add file back-end/config/global_variables.js and store the following information:
