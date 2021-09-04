@@ -1,5 +1,5 @@
 # WEBSITE
-This repo has a front end built with angular and bootstrap and a back end storing files using node framework express.
+This repo has a front end built with angular and bootstrap. It also has a back end storing files using node framework express.
 
 ## SETUP:
 * Install Node.js: https://nodejs.org/en/download/
